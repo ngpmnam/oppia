@@ -651,6 +651,16 @@ export class TopNavigationBarComponent implements OnInit, OnDestroy {
     this.windowRef.nativeWindow.location.href = '/blog';
   }
 
+  GITHUB_URL = 'https://github.com/oppia/oppia';
+
+  openGithubPage(): void {
+    this.windowRef.nativeWindow.open(
+      this.GITHUB_URL,
+      '_blank',
+      'noopener,noreferrer'
+    );
+  }
+
   isWebFeedbackModalFeatureFlagEnabled(): boolean {
     return this.platformFeatureService.status.WebFeedbackModalEnabled.isEnabled;
   }
