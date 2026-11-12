@@ -165,6 +165,33 @@ describe('RTE display component', () => {
     expect(link.innerHTML.replace(/\s/g, '')).toEqual('Oppia');
   }));
 
+  it('should display normal text wrapped in a div', fakeAsync(() => {
+    const rteString = '<div>Normal blog text</div>';
+
+    fixture.detectChanges();
+
+    const changes: SimpleChanges = {
+      rteString: {
+        previousValue: '',
+        currentValue: rteString,
+        firstChange: true,
+        isFirstChange: () => true,
+      },
+    };
+
+    component.rteString = rteString;
+    component.ngOnChanges(changes);
+    component.ngAfterViewInit();
+
+    fixture.detectChanges();
+    flush();
+    discardPeriodicTasks();
+
+    const renderedText = (fixture.nativeElement as HTMLElement).textContent;
+
+    expect(renderedText).toContain('Normal blog text');
+  }));
+
   it('should report errors when parsing', fakeAsync(() => {
     spyOn(rteParserService, 'constructFromDomParser').and.throwError('error');
     spyOn(
